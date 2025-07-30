@@ -26,7 +26,7 @@ const register = async (req, res) => {
       data: {
         email,
         password: hashedPassword,
-        role: 'USER' // Opcional, ya que Prisma lo tiene como default
+        role: 'USER' 
       }
     })
 
@@ -44,8 +44,8 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body
     
-    console.log('EMAIL:', email)//recardar quitar
-    console.log('PASSWORD:', password)//recardar quitar
+    console.log('EMAIL:', email)
+    console.log('PASSWORD:', password)
 
     if (!email || !password) {
       return res.status(400).json({ message: 'Email y contraseña son requeridos.' })
@@ -56,14 +56,14 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: 'Credenciales inválidas.' })
     }
-    console.log('Usuario encontrado:', user)//recardar quitar
+    console.log('Usuario encontrado:', user)
 
     const passwordMatch = await bcrypt.compare(password, user.password)
 
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Credenciales inválidas.' })
     }
-    console.log('Comparando:', password, 'vs', user.password)//recardar quitar
+    console.log('Comparando:', password, 'vs', user.password)
     
     const token = generateToken(user)
 

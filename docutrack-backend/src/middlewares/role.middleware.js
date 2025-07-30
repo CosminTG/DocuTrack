@@ -1,8 +1,7 @@
 const checkAdmin = (req, res, next) => {
   if (req.user.role !== 'ADMIN') {
-    return res.status(403).json({ message: 'Acceso denegado: Solo administradores' })
+    return res.status(403).json({ message: 'Acceso denegado: Solo para admins' })
   }
-
   next()
 }
 
