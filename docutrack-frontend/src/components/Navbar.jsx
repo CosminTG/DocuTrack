@@ -16,7 +16,7 @@ export default function Navbar() {
       setIsLoggedIn(true)
       setRole(roleStored)
 
-      // Obtener email del token (por si lo quieres mostrar)
+      // Obtener email del token por si se quiere mostrar para algo
       const payload = JSON.parse(atob(token.split('.')[1]))
       setEmail(payload.email)
     }
@@ -33,17 +33,27 @@ export default function Navbar() {
       </div>
 
       <div className="flex gap-4 items-center">
-        {isLoggedIn && (
-          <>
-            {role === 'ADMIN' ? (
-              <button onClick={() => goTo('/admin')}>Panel Admin</button>
-            ) : (
-              <button onClick={() => goTo('/dashboard')}>Dashboard</button>
-            )}
-            <span className="text-sm text-gray-300 hidden sm:inline">({email})</span>
-          </>
-        )}
-      </div>
+  {isLoggedIn && (
+    <>
+      {role === 'ADMIN' ? (
+        <button onClick={() => goTo('/admin')}>Panel Admin</button>
+      ) : (
+        <button onClick={() => goTo('/dashboard')}>Dashboard</button>
+      )}
+      <span className="text-sm text-gray-300 hidden sm:inline">({email})</span>
+      <button
+        onClick={() => {
+          localStorage.clear()
+          router.push('/login')
+        }}
+        className="ml-4 px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-white text-sm"
+      >
+        Cerrar sesión
+      </button>
+    </>
+  )}
+</div>
+
     </nav>
   )
 }

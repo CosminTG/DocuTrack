@@ -10,8 +10,9 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
+    const role = localStorage.getItem('role')
 
-    if (!token) {
+    if (!token || role !== 'ADMIN') {
       router.push('/login')
       return
     }
@@ -71,6 +72,7 @@ const handleSubmit = async (e) => {
 
   return (
     <main className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-xl font-semibold">Bienvenido al Dashboard</h1>
         <form
   onSubmit={handleSubmit}
   className="bg-white p-4 mb-6 shadow rounded space-y-4"

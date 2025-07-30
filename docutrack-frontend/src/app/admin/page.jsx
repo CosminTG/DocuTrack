@@ -10,11 +10,15 @@ export default function AdminPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    if (!token) {
+    const role = localStorage.getItem('role')
+    //if (!token) {
+      //router.push('/login')
+      //return
+    //}
+    if (!token || role !== 'ADMIN') {
       router.push('/login')
       return
     }
-
     const fetchData = async () => {
       try {
         const res = await axios.get('http://localhost:3001/api/admin/certificates', {
