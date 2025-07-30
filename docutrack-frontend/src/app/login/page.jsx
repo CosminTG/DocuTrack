@@ -22,10 +22,20 @@ export default function LoginPage() {
       const { token } = res.data
 
       // Guardar token en localStorage
-      localStorage.setItem('token', token)
+      //localStorage.setItem('token', token)
+      localStorage.setItem('token', res.data.token)
+      
+      // Decodificar payload (parte intermedia del JWT)
+      const payload = JSON.parse(atob(res.data.token.split('.')[1]))
 
-      // Redirigir al dashboard
-      router.push('/dashboard')
+      localStorage.setItem('role', payload.role)
+      // Redirigir según rol
+      //router.push('/dashboard')
+      if (payload.role === 'ADMIN') {
+        router.push('/admin')
+      } else {
+        router.push('/dashboard')
+      }
     } catch (err) {
       console.error(err)
       setError('Credenciales inválidas')
