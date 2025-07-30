@@ -4,7 +4,8 @@ const { checkAdmin } = require('../middlewares/role.middleware')
 const {
   getAllCertificates,
   getCertificateById,
-  updateCertificateStatus
+  updateCertificateStatus,
+  createUser,
 } = require('../controllers/admin.controller')
 
 const router = express.Router()
@@ -15,5 +16,6 @@ router.use(verifyToken, checkAdmin)
 router.get('/certificates', getAllCertificates)
 router.get('/certificates/:id', getCertificateById)
 router.patch('/certificates/:id', updateCertificateStatus)
+router.post('/users', createUser)
 
 module.exports = router
